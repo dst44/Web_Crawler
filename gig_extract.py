@@ -7,6 +7,9 @@ from bs4 import BeautifulSoup
 
 #from class selenium.webdriver.support.select.Select(webelement)
 
+#This extracts all the data in a particular gig:
+#rating, rating date, reviewer's name and the review itself.
+
 from selenium.webdriver.common.keys import Keys
 
 def crawler():
