@@ -4,6 +4,9 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 
+#This navigates and browses the entire site
+#calls gig_extract to then go into a particular gig and extract data in it.
+
 browser=webdriver.Chrome('C:\chromedriver.exe')
 
 def crawler():
