@@ -1,11 +1,18 @@
+pip3 install python-docx
 import requests
 import time
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
 
+import docx
+import os
+
+os.chdir('C:/crawler') #name of the directory where target file is located 
+doc = docx.Document(python.docx) #python.docx is name of the word doc
+
 #This navigates and browses the entire site
-#calls gig_extract to then go into a particular gig and extract data in it.
+#call gig_extract to into a particular freelancer and extract data in it.
 
 browser=webdriver.Chrome('C:\chromedriver.exe')
 
@@ -56,16 +63,24 @@ def crawler():
                             for i in range(1,1000):
                                 browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-                            soup=BeautifulSoup(browser.page_source)
+                            soup=BeautifulSoup(browser.page_source)                    
+                            
+                            #################################################################
+                            
+                            doc.add_heading('Gig no.'+i)
                             
                             for h4 in soup.find_all('h4',{'class': 'gig-fancy-header'}):
                                 print(h4.text)
+                                doc.add_paragraph(h4.text, style='List Bullet')
+                                
                             
                             for span in soup.find_all('span',{'class': 'numeric-rating'}):
                                 print("Rating: "+ span.text)
+                                doc.add_paragraph('Rating: '+ span.text, style='List Bullet')
                             
                             for div in soup.find_all('div',{'class': 'gig-main-desc'}):
                                 print(div.text)
+                                doc.add_paragraph(div.text, style='List Bullet')
                             
                             sum=0
                             
@@ -78,22 +93,25 @@ def crawler():
                                     
                                     for a in linkss:
                                         print(a.text)
+                                        doc.add_paragraph(a.text, style='List Bullet')
                                     
                                     divi=li.find_all('div',{'class', 'msg-body'});
                                     
                                     for div in divi:
                                         print(div.text)
+                                        doc.add_paragraph(div.text, style='List Bullet')
                                     
                                     spann=li.find_all('span',{'class', 'rating-date'});
                                     
                                     for span in spann:
                                         print(span.text)
+                                        doc.add_paragraph(span.text, style='List Bullet')
                                     
                                     sum+=1
                                     time.sleep(1)
                             
                             print(sum)
-                        
+                            doc.add_paragraph('total reviews : '+sum, style='List Bullet')
                         else : break
 
 
